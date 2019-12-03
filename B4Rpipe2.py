@@ -3,10 +3,13 @@ import importlib
 import os
 importlib.reload(Lib)
 
-Lib.globBaseDir = '/Volumes/hdd_mac/b4r'
-Lib.globLogDir = '/Volumes/hdd_mac/b4r/logv1'
+globBaseDir = '/Volumes/hdd_mac/b4r'
+globLogDir = '/Volumes/hdd_mac/b4r/logv1'
 
 def PipelineAnalysis(obsnum):
+
+    Lib.globBaseDir = globBaseDir
+    Lib.globLogDir = globLogDir
 
     os.system('mkdir -p '+Lib.globLogDir)
     os.system('mkdir -p '+Lib.globLogDir+'/'+str(obsnum))
