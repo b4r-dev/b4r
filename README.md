@@ -38,3 +38,13 @@ You need to specify following pathes.
 #### B4Rpipe2.globLogDir
 * The path where outputs from B4Rpipe2 are created.
 * Anywhere you like is OK.
+
+**************************************************************
+Products
+**************************************************************
+The script create following outputs (if possible).
+
+* Continuum Map Qlook (Pointing offset, efficiency, etc.)
+* Line (SiO) Map Qlook (Pointing offset, etc.)
+* Spectrum Qlook (with auto-flag)
+* MS2 (CASA readable format)
