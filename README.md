@@ -1,5 +1,5 @@
 # b4rpipe
-:rocket:Tools for B4R/LMT data reduction.
+:rocket:A pipeline reduction tool for B4R/LMT data.
 
 **The scripts are still under development. We are not responsible for the outputs now.**
 
