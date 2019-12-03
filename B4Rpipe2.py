@@ -1,6 +1,8 @@
+#!/usr/bin/env python3
 import LibB4Rtools as Lib
 import importlib
 import os
+import numpy as np
 importlib.reload(Lib)
 
 globBaseDir = '/Volumes/hdd_mac/b4r'
