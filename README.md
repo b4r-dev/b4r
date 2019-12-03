@@ -13,3 +13,16 @@ $ pip install pipenv
 $ pipenv install
 $ pipenv shell
 ```
+
+You are now in the python environment.
+
+**************************************************************
+Interactive mode
+**************************************************************
+```terminal
+$ python
+$ >>> import B4Rpipe2 as Bp
+$ >>> Bp.globBaseDir = '/Volumes/hdd_mac/b4r'
+$ >>> Bp.globLogDir = '/Volumes/hdd_mac/b4r/logv1'
+$ >>> Bp.PipelineAnalysis(87269)
+```
