@@ -29,4 +29,4 @@ $ >>> Bp.PipelineAnalysis(87269)
 
 You need to specify following pathes.
 * B4Rpipe2.globBaseDir
-The path where "xffts" and "lmttpm" directorys are located.
+  The path where "xffts" and "lmttpm" directorys are located.
