@@ -26,3 +26,7 @@ $ >>> Bp.globBaseDir = '/Volumes/hdd_mac/b4r'
 $ >>> Bp.globLogDir = '/Volumes/hdd_mac/b4r/logv1'
 $ >>> Bp.PipelineAnalysis(87269)
 ```
+
+You need to specify following pathes.
+* B4Rpipe2.globBaseDir
+The path where "xffts" and "lmttpm" directorys are located.
