@@ -1,0 +1,68 @@
+# b4rpipe
+
+[![License](https://img.shields.io/badge/license-MIT-blue.svg?label=License&style=flat-square)](LICENSE)
+
+A pipeline reduction tool for B4R/LMT data.
+
+**The scripts are still under development. We are not responsible for the outputs now.**
+
+**************************************************************
+Installation
+**************************************************************
+
+```terminal
+$ pip install b4rpipe
+```
+
+**************************************************************
+Usage
+**************************************************************
+
+### Reduce individual data
+
+```terminal
+$ python
+$ >>> import b4rpipe as Bp
+$ >>> Bp.globBaseDir = '/home/hoge/b4r'
+$ >>> Bp.globLogDir = '/home/hoge/b4r/logv1'
+$ >>> Bp.PipelineAnalysis(86420)
+```
+
+This example shows a pipeline analysis for the data obsid 86420.
+
+### Reduce all data (for database)
+
+```terminal
+$ python
+$ >>> import b4rpipe as Bp
+$ >>> Bp.globBaseDir = '/home/hoge/b4r'
+$ >>> Bp.globLogDir = '/home/hoge/b4r/logv1'
+$ >>> Bp.PipelineAnalysisBatchRun()
+```
+
+You need to specify following pathes.
+#### b4pipe.globBaseDir
+* The path where "xffts" and "lmttpm" directorys are located.
+* XFFTS binary data (e.g., xffts20181003111006.xfftsx.01) should be stored under the "xffts" directory.
+* LMT antenna log data (e.g., lmttpm_2018-04-22_075858_01_0000.nc) should be stored under the "lmttpm" directory.
+
+#### b4rpipe.globLogDir
+* The path where outputs are created.
+* Anywhere you like is OK.
+
+**************************************************************
+Products
+**************************************************************
+The script create following outputs (if possible).
+
+* Continuum Map Qlook (Pointing offset, efficiency, etc.)
+* Line (SiO) Map Qlook (Pointing offset, etc.)
+* Spectrum Qlook (with auto-flag)
+* MS2 (CASA readable format)
+
+**************************************************************
+Information
+**************************************************************
+* B4R webpage: http://lmtgtm.org/b4r/?lang=en
+* Contact: Yuki Yoshimura
+  (email: astro.yoshimura(_at_)gmail.com)
