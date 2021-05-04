@@ -1,17 +1,18 @@
 #!/usr/bin/env python3
-import LibB4Rtools as Lib
-import importlib
+import b4rpipe.LibB4Rtools as Lib
+import b4rpipe as Bp
+#import importlib
 import os
 import numpy as np
-importlib.reload(Lib)
+#importlib.reload(Lib)
 
-globBaseDir = '/Volumes/hdd_mac/b4r'
-globLogDir = '/Volumes/hdd_mac/b4r/logv1'
+Bp.globBaseDir = '/home/ysmr/NAS'
+Bp.globLogDir = '/home/ysmr/B4R/b4rpipe/test'
 
 def PipelineAnalysis(obsnum):
 
-    Lib.globBaseDir = globBaseDir
-    Lib.globLogDir = globLogDir
+    Lib.globBaseDir = Bp.globBaseDir
+    Lib.globLogDir = Bp.globLogDir
 
     os.system('mkdir -p '+Lib.globLogDir)
     os.system('mkdir -p '+Lib.globLogDir+'/'+str(obsnum))
@@ -69,11 +70,14 @@ def PipelineAnalysis(obsnum):
 
     logf.close()
 
-
-if __name__ == '__main__':
+def PipelineAnalysisBatchRun():
     print('### Batch run start!! ###')
     obsnum_list = (np.array(Lib.returnFileList(mode='OBS'))[:,0]).astype('int')
     obsnum_list = obsnum_list[obsnum_list>79999] # 2019
 
     for obsnum in obsnum_list:
         PipelineAnalysis(obsnum)
+
+def debug():
+    print(Bp.globBaseDir)
+    print(Bp.globLogDir)

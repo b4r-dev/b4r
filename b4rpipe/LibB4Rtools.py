@@ -1,9 +1,10 @@
+
 import matplotlib
-matplotlib.use('TkAgg')
+#matplotlib.use('TkAgg')
 import os
-import specfile4 as sp
+
 import netCDF4 as nc
-import makedatalist as md
+
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.interpolate import interp1d
@@ -25,11 +26,16 @@ from math import pi
 import re
 import warnings
 warnings.simplefilter('ignore')
-import CreateMs2 as ms2
+
 
 from astropy.utils import iers
 iers.conf.auto_download = False
 iers.conf.auto_max_age = None
+
+# submodules
+import b4rpipe.makedatalist as md
+import b4rpipe.specfile4 as sp
+import b4rpipe.CreateMs2 as ms2
 
 globBaseDir = '/Volumes/hdd_mac/b4r'
 globLogDir = '/Volumes/hdd_mac/b4r/logv1'

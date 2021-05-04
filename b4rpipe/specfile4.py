@@ -21,7 +21,7 @@ class SpecFile :
     maxch = 32768
     headSize = 256
     unitSize = headSize + maxch*4
-    
+
     def __init__ (self, name, directory = '', spw=[0,1,2,3], chrange=[0,None]) :
         self.name = name
         self.directory = directory
@@ -38,10 +38,10 @@ class SpecFile :
         if chrange[1] < 0 : chrange[1] = chrange[1]+SpecFile.maxch
         self.chrange = sorted(chrange)
         self.nchan  = self.chrange[1] - self.chrange[0]
-                                    
+
     def getSize(self) :
         size_raw = os.stat(self.fullPath + '.01').st_size
-        if size_raw < SpecFile.unitSize : return 0 
+        if size_raw < SpecFile.unitSize : return 0
         return int(math.floor(size_raw / SpecFile.unitSize))
 
     def binHead(self, idx) :
@@ -54,7 +54,7 @@ class SpecFile :
         bin_scanMode =bindata[48:56]
         bin_chopper  =bindata[56:64]
         bin_scanCount=bindata[64:72]
-        bin_specCount=bindata[72:80]     
+        bin_specCount=bindata[72:80]
         bin_integTime=bindata[80:88]
         return { 'date' : bin_date,
                  'obsNum'    : struct.unpack_from('<l', bin_obsNum)[0],
@@ -79,7 +79,7 @@ class SpecFile :
             theHead = self.binHead(idx)
             self.scanPattern.append((theHead['bufPos'], theHead['chopperPos']))
             self.scanIds    .append(theHead['scanCount'])
-            
+
             isnewScan = ( self.scanIds[-1] != self.scanIds[-2] ) if idx > 1 else True
             thisScan = self.scanPattern[-1]
 
@@ -107,14 +107,14 @@ class SpecFile :
             fp.tell()
             fp.seek(idx * SpecFile.unitSize)
             bindata = fp.read(SpecFile.headSize )#unitSize)
-            
+
             bin_date   = bindata[:28]
             bin_obsNum = bindata[32:40]
             bin_bufPos = bindata[40:48]
             bin_scanMode =bindata[48:56]
             bin_chopper  =bindata[56:64]
             bin_scanCount=bindata[64:72]
-            bin_specCount=bindata[72:80]     
+            bin_specCount=bindata[72:80]
             bin_integTime=bindata[80:88]
 
 #            data[i] =  [ struct.unpack_from('<f', bindata, 256 + 4*k)[0] for k in range(32768)]
@@ -123,7 +123,7 @@ class SpecFile :
 
             fp.seek(idx * SpecFile.unitSize + 256 + self.chrange[0]*4)
             data[i]  = np.fromfile(fp, count=self.nchan, dtype='f') #dtype=float)
-                              
+
         return { 'date' : bin_date,
                  'data' : np.array(data),
                  'obsNum'    : struct.unpack_from('<l', bin_obsNum)[0],
@@ -145,14 +145,14 @@ class SpecFile :
             fp.tell()
             fp.seek(idx * SpecFile.unitSize)
             bindata = fp.read(SpecFile.unitSize)
-            
+
             bin_date   = bindata[:28]
             bin_obsNum = bindata[32:40]
             bin_bufPos = bindata[40:48]
             bin_scanMode =bindata[48:56]
             bin_chopper  =bindata[56:64]
             bin_scanCount=bindata[64:72]
-            bin_specCount=bindata[72:80]     
+            bin_specCount=bindata[72:80]
             bin_integTime=bindata[80:88]
 
 #            data[i] =  [ struct.unpack_from('<f', bindata, 256 + 4*k)[0] for k in range(32768)]
@@ -161,7 +161,7 @@ class SpecFile :
 
 #            fp.seek(idx * SpecFile.unitSize + 256 + self.chrange[0]*4)
 #            data[i]  = np.fromfile(fp, count=self.nchan, dtype='f') #dtype=float)
-                              
+
         return { 'date' : bin_date,
                  'data' : np.array(data),
                  'obsNum'    : struct.unpack_from('<l', bin_obsNum)[0],
@@ -174,7 +174,7 @@ class SpecFile :
 
 
 
-    
+
     def readData(self, idx):
 
         data = [ None ] * (self.narray)
@@ -184,7 +184,7 @@ class SpecFile :
             fp.tell()
             fp.seek(idx * SpecFile.unitSize + 256 + self.chrange[0]*4)
             data[i]  = np.fromfile(fp, count=self.nchan, dtype='f') #dtype=float)
-                              
+
         return np.array(data)
 
 
@@ -245,28 +245,28 @@ class SpecFile :
         lastS = self.getLastAveragedSpec('CAL', 'S')
         if (lastR == None) or (lastS == None) : return None
         else : return lastR - lastS
-        
+
     def getLatCal(self) :
         return 300 * self.getLastOnOff() / self.getLastRsky()
 
     def getOnOff(self, onIdx) :
         self.analyScanPattern()
-        offIdx = self.offCount[ self.onCount.index(onIdx) ] 
+        offIdx = self.offCount[ self.onCount.index(onIdx) ]
         if offIdx < 0 : return None
 
         specOn  = self.getAveragedSpec(self.scanIds[self.onCount.index(onIdx)])
         specOff = self.getAveragedSpec(self.scanIds[self.offCount.index(offIdx)])
-        
+
         return specOn - specOff
 
     def getOnOffDiv(self, onIdx, n, N ) :
         self.analyScanPattern()
-        offIdx = self.offCount[ self.onCount.index(onIdx) ] 
+        offIdx = self.offCount[ self.onCount.index(onIdx) ]
         if offIdx < 0 : return None
 
         specOn  = self.getAveragedSpecDiv(self.scanIds[self.onCount.index(onIdx)], n, N)
         specOff = self.getAveragedSpec(self.scanIds[self.offCount.index(offIdx)])
-        
+
         return specOn - specOff
 
     def getSingleOnOff(self, onIntegIdx) :
@@ -285,8 +285,8 @@ class SpecFile :
         if not isFound : return None
 
         theSpec = self.readSpec(idx)
-        offIdx = self.offCount[ idx ] 
-        onIdx = self.onCount[ idx ] 
+        offIdx = self.offCount[ idx ]
+        onIdx = self.onCount[ idx ]
         if offIdx < 0 : return None
 
         print(idx, offIdx, onIdx)
@@ -294,5 +294,3 @@ class SpecFile :
         specOff= self.getAveragedSpec(self.scanIds[self.offCount.index(offIdx)])
 
         return (specOn - specOff), [idx,offIdx,onIdx]
-
-    

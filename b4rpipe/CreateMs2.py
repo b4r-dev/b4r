@@ -1508,4 +1508,3 @@ def createMS2(MS2name,specdata,time,ra,dec,sysvel,sourcename,project,observer,di
 	#return returnedTable
 
 # end createMS2
-################################################################################
