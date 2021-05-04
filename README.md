@@ -1,5 +1,7 @@
 # b4rpipe
 
+[![](https://img.shields.io/pypi/v/b4rpipe.svg?label=PyPI&style=flat-square)](https://pypi.org/pypi/b4rpipe/)
+[![](https://img.shields.io/pypi/pyversions/b4rpipe.svg?label=Python&color=yellow&style=flat-square)](https://pypi.org/pypi/b4rpipe/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?label=License&style=flat-square)](LICENSE)
 
 A pipeline reduction tool for B4R/LMT data.
