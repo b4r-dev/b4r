@@ -1,0 +1,24 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[[source]]
+url = "https://test.pypi.org/simple/"
+verify_ssl = true
+name = "test.pypi"
+
+[packages]
+numpy = "*"
+pandas = "*"
+scipy = "*"
+matplotlib = "*"
+astropy = "*"
+ipython = "*"
+tqdm = "*"
+b4rpipe = {version = "==0.0.6", index = "https://test.pypi.org/simple/"}
+
+[dev-packages]
+
+[requires]
+python_version = "3.6"
