@@ -689,7 +689,7 @@ def makeFREQ_OFFSET(tablename,outputfilename):
     returned_table.putcolkeywords('INTERVAL',value)
 
     value = {'QuantumUnits': np.array(['Hz'],dtype='|S3'),
-             'MEASINFO': {'type': 'frequency','Ref': 'LSRK'},
+             'MEASINFO': {'type': 'frequency','Ref': 'TOPO'},
             }
     returned_table.putcolkeywords('OFFSET',value)
 
@@ -1147,7 +1147,7 @@ def makeSOURCE(tablename,outputfilename,ra,dec,sysvel,sourcename,time,freq):
 
 
     value = {'QuantumUnits': np.array(['Hz'],dtype='|S3'),
-             'MEASINFO': {'type': 'frequency','Ref': 'LSRK'},
+             'MEASINFO': {'type': 'frequency','Ref': 'TOPO'},
             }
     returned_table.putcolkeywords('REST_FREQUENCY',value)
 
