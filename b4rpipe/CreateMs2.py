@@ -1184,7 +1184,7 @@ def makeSPECTRAL_WINDOW(tablename,outputfilename,freq,nspw=2):
 	f = open(outputfilename+'.dat','w')
 
 	for i in range(nspw):
-		MEAS_FREQ_REF = '1'
+		MEAS_FREQ_REF = '5' #TOPO
 		#CHAN_FREQ = ';'.join(map(str,freq[i]))
 		#CHAN_FREQ = ''
 		REF_FREQUENCY = str(freq[i][0])
