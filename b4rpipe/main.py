@@ -9,7 +9,7 @@ import numpy as np
 Bp.globBaseDir = '/home/ysmr/NAS'
 Bp.globLogDir = '/home/ysmr/B4R/b4rpipe/test'
 
-def PipelineAnalysis(obsnum):
+def PipelineAnalysis(obsnum,dAZ=0.,dEL=0.):
 
     Lib.globBaseDir = Bp.globBaseDir
     Lib.globLogDir = Bp.globLogDir
@@ -63,7 +63,7 @@ def PipelineAnalysis(obsnum):
     try:
         obj = Lib.B4Rdataset(obsnum=obsnum,calnum=obsnum-1)
         obj.Pipeline(binning=1,noRefCal=True)
-        obj.createMS2()
+        obj.createMS2(dAZ=dAZ,dEL=dEL)
         logf.write('MS2: PASS'+'\n')
     except:
         logf.write('MS2: FAIL'+'\n')

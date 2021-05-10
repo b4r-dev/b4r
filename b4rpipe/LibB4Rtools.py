@@ -37,8 +37,8 @@ import b4rpipe.makedatalist as md
 import b4rpipe.specfile4 as sp
 import b4rpipe.CreateMs2 as ms2
 
-globBaseDir = '/Volumes/hdd_mac/b4r'
-globLogDir = '/Volumes/hdd_mac/b4r/logv1'
+globBaseDir = '/home/ysmr/NAS'
+globLogDir = '/home/ysmr/B4R/b4rpipe/test'
 
 def binnedArray(arr, nbin) :
     if nbin <=1 : return arr
@@ -1032,24 +1032,27 @@ class B4Rdataset :
 
             self.createPsData(Dir='ContPointing/')
 
-    def PointingConv(self):
+    def PointingConv(self,dAZ=0.,dEL=0.):
         print('### Convert AZEL to RADEC...')
+        # dAZ, dEL in the arcsec unit
 
         direction = np.zeros((self.ontime.shape[0],2),dtype='float64')
         time = np.zeros(self.ontime.shape[0],dtype='float64')
 
         for i in tqdm(range(self.ontime.shape[0])):
             onTime = Time(self.ontime[i]/1.0e6,format='unix',scale='utc')
-            ra,dec = AZEL2RADEC(self.azon_intrp_sky[i]/3600.,self.elon_intrp_sky[i]/3600.,onTime)
+            ra,dec = AZEL2RADEC((self.azon_intrp_sky[i]-dAZ)/3600.,(self.elon_intrp_sky[i]-dEL)/3600.,onTime)
             direction[i][0] = ra
             direction[i][1] = dec
             time[i] = onTime.mjd*24.*60.*60.
 
         self.direction = direction
         self.time = time
+        self.dAZ = dAZ
+        self.dEL = dEL
 
-    def createMS2(self):
-        self.PointingConv()
+    def createMS2(self,dAZ=0.,dEL=0.):
+        self.PointingConv(dAZ=dAZ,dEL=dEL)
         specdata = np.zeros([self.time.shape[0],2,2,self.lsbfreq.shape[0]])
         specdata[:,0,0,:] = self.onoffspecs_raw[:,0,:]
         specdata[:,0,1,:] = self.onoffspecs_raw[:,1,:]
@@ -1069,7 +1072,11 @@ class B4Rdataset :
         os.system('mkdir -p '+globLogDir)
         os.system('mkdir -p '+globLogDir+'/'+str(self.obsnum))
         os.system('mkdir -p '+globLogDir+'/'+str(self.obsnum)+'/MS2')
-        MS2name = globLogDir+'/'+str(self.obsnum)+'/MS2/MS2.'+str(self.obsnum)+'.chbin'+str(self.binning)+'.ms'
+
+        if self.dAZ==0. and self.dEL==0.:
+            MS2name = globLogDir+'/'+str(self.obsnum)+'/MS2/MS2.'+str(self.obsnum)+'.chbin'+str(self.binning)+'.ms'
+        else:
+            MS2name = globLogDir+'/'+str(self.obsnum)+'/MS2/MS2.'+str(self.obsnum)+'.chbin'+str(self.binning)+'.dAZ_'+str(self.dAZ)+'.EL_'+str(self.dEL)+'.ms'
 
         ms2.createMS2(MS2name,specdata,self.time,np.rad2deg(self.source_ra),np.rad2deg(self.source_dec),self.sysvel,self.srcname,self.Pid,self.Observer,self.direction,freq,Tsys,Tsys_time,state_id)
 
