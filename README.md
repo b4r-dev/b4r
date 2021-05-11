@@ -91,10 +91,10 @@ Correspondence
 
 | Name | B4R | CASA MS2 |
 | --- | --- | --- |
-| polarization | A | YY |
-| polarization | B | XX |
-| sideband | LSB | 0 |
-| sideband | USB | 1 |
+| polarization | A | (correlation or stokes) YY |
+| polarization | B | (correlation or stokes) XX |
+| sideband | LSB | spw 0 |
+| sideband | USB | spw 1 |
 
 **************************************************************
 Information
