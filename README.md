@@ -88,6 +88,7 @@ $ls calibrated
 Correspondence
 **************************************************************
 + B4R 2018/2019 (obsnum<087433) data <-> CASA MS2
+
 | Name | B4R | CASA MS2 |
 | --- | --- | --- |
 | polarization | A | YY |
