@@ -1055,14 +1055,14 @@ class B4Rdataset :
         self.PointingConv(dAZ=dAZ,dEL=dEL)
         specdata = np.zeros([self.time.shape[0],2,2,self.lsbfreq.shape[0]])
         specdata[:,0,0,:] = self.onoffspecs_raw[:,0,:]
-        specdata[:,1,0,:] = self.onoffspecs_raw[:,1,:]
-        specdata[:,0,1,:] = self.onoffspecs_raw[:,2,:]
+        specdata[:,0,1,:] = self.onoffspecs_raw[:,1,:]
+        specdata[:,1,0,:] = self.onoffspecs_raw[:,2,:]
         specdata[:,1,1,:] = self.onoffspecs_raw[:,3,:]
 
         Tsys = np.zeros([2,2,self.lsbfreq.shape[0]])
         Tsys[0,0,:] = self.Tsys[0,:]
-        Tsys[1,0,:] = self.Tsys[1,:]
-        Tsys[0,1,:] = self.Tsys[2,:]
+        Tsys[0,1,:] = self.Tsys[1,:]
+        Tsys[1,0,:] = self.Tsys[2,:]
         Tsys[1,1,:] = self.Tsys[3,:]
 
         Tsys_time = Time(self.Tsys_time/1.0e6,format='unix',scale='utc').mjd*24.*60.*60.

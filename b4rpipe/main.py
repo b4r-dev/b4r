@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
 import b4rpipe.LibB4Rtools as Lib
+import b4rpipe.b4rquery as b4rQ
 import b4rpipe as Bp
 #import importlib
 import os
 import numpy as np
 #importlib.reload(Lib)
 
-Bp.globBaseDir = '/home/ysmr/NAS'
-Bp.globLogDir = '/home/ysmr/B4R/b4rpipe/test'
+Bp.globBaseDir = './rawdata'
+Bp.globLogDir = './calibrated'
 
-def PipelineAnalysis(obsnum,dAZ=0.,dEL=0.):
+def PipelineAnalysis(obsnum,dAZ=0.,dEL=0.,DataDownload=False,username='',password=''):
 
     Lib.globBaseDir = Bp.globBaseDir
     Lib.globLogDir = Bp.globLogDir
@@ -18,6 +19,12 @@ def PipelineAnalysis(obsnum,dAZ=0.,dEL=0.):
     os.system('mkdir -p '+Lib.globLogDir+'/'+str(obsnum))
 
     logf = open(Lib.globLogDir+'/'+str(obsnum)+'/PipelineAnalysis.'+str(obsnum)+'.log','w')
+
+    if DataDownload:
+        os.system('mkdir -p '+Bp.globBaseDir)
+        Query = b4rQ.B4Rquery(username=username,password=password,localBaseDir=Bp.globBaseDir)
+        Query.SearchAndDownload(obsnum)
+        Query.SearchAndDownload(obsnum-1)
 
     try:
         obj = Lib.B4Rdataset(obsnum=obsnum,calnum=obsnum-1)

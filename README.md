@@ -63,6 +63,39 @@ The script create following outputs (if possible).
 * MS2 (CASA readable format)
 
 **************************************************************
+Data query and download (only for internal use now)
+**************************************************************
+If you are in the NAOJ or IoA (U. Tokyo) local network, you can access the B4R ftp server.
+
+```terminal
+$ python
+$ >>> import b4rpipe as Bp
+$ >>> Bp.PipelineAnalysis(86420,DataDownload=True,username='hogehoge',password='*****')
+```
+
+Then "raw" and "calibrated" directory appears at the current directory.
+
+```terminal
+$ ls
+raw calibrated
+$ ls raw
+lmttpm xffts
+$ls calibrated
+86420
+```
+
+**************************************************************
+Correspondence
+**************************************************************
++ B4R 2018/2019 (obsnum<087433) data <-> CASA MS2
+| Name | B4R | CASA MS2 |
+| --- | --- | --- |
+| polarization | A | YY |
+| polarization | B | XX |
+| sideband | LSB | 0 |
+| sideband | USB | 1 |
+
+**************************************************************
 Information
 **************************************************************
 * B4R webpage: http://lmtgtm.org/b4r/?lang=en

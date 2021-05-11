@@ -8,9 +8,9 @@ class B4Rquery:
     def __init__(self,
                 username,
                 password,
-                hosturl='ngc253.mtk.ioa.s.u-toko.ac.jp',
-                b4rDir='/B4R/',
-                localBaseDir='./'
+                hosturl='ngc253.mtk.ioa.s.u-tokyo.ac.jp',
+                b4rDir='/B4R',
+                localBaseDir='./rawdata',
                 ):
 
         config = {
@@ -20,66 +20,68 @@ class B4Rquery:
             }
 
         self.config = config
-        self.ftp = FTP(**config)
         self.localBaseDir = localBaseDir
         self.b4rDir = b4rDir
-        self.lmttpm = self.ftp.nlst(b4rDir+'lmttpm/')
-        self.xffts = self.ftp.nlst(b4rDir+'xffts/')
+
+        ftp = FTP(**config)
+        self.lmttpm = ftp.nlst(b4rDir+'/lmttpm/')
+
+        ftp = FTP(**config)
+        self.xffts = ftp.nlst(b4rDir+'/xffts_links_ftp/*_xffts*')
 
 
     def FindRawdata(self,obsid):
         self.obsid = obsid
 
         # lmttpm
-        result_lmttpm = [s for s in self.mttpm if str(obsid).zfill(6) in s]
+        result_lmttpm = [s for s in self.lmttpm if str(obsid).zfill(6) in s]
 
         if len(result_lmttpm)==1:
-            print('Find one lmttpm file: '+result_lmttpm[0])
+            print('Find one lmttpm file: ')
+            print('  '+result_lmttpm[0])
             self.lmttpmFile = result_lmttpm[0]
         else:
             print('Error: No or more than one lmttpm files were found', file=sys.stderr)
             sys.exit(1)
 
         # xffts
-        for x in xffts:
-            try:
-                xff = sp.SpecFile(x)
-                if xff.binHead(0)['obsNum'] == obsid:
-                    print('Find one xffts file: '+x)
-                    self.xfftsFile = x
-                    break
-            except:
-                continue
+        result_xffts = [s for s in self.xffts if str(obsid).zfill(6)+'_' in s]
 
-        if self.xfftsFile==None:
-            print('Error: No xffts file was found', file=sys.stderr)
+        if len(result_xffts)>0:
+            print('Find '+str(len(result_xffts))+' xffts files: ')
+            for filename in result_xffts:
+                print('  '+filename)
+
+            self.xfftsFileList = result_xffts
+        else:
+            print('Error: No xffts files were found', file=sys.stderr)
             sys.exit(1)
-
 
     def DownloadRawdata(self):
 
-        os.system('mkdir -p '+self.localBaseDir+'lmttpm/')
-        os.system('mkdir -p '+self.localBaseDir+'xffts/')
+        os.system('mkdir -p '+self.localBaseDir+'/lmttpm/')
+        os.system('mkdir -p '+self.localBaseDir+'/xffts/')
 
         #lmttpm
         print('Downloading a lmttpm file of obsid: '+str(self.obsid).zfill(6))
         try:
             with FTP(**self.config) as ftp:
-                with open(self.lmttpm, 'wb') as fp:
-                    ftp.retrbinary('RETR '+elf.localBaseDir+'lmttpm/'+os.path.basename(self.lmttpm), fp.write)
-            print('  successfully downloaded')
+                with open(self.localBaseDir+'/lmttpm/'+os.path.basename(self.lmttpmFile), 'wb') as fp:
+                    ftp.retrbinary('RETR '+self.lmttpmFile, fp.write)
+            print(os.path.basename(self.lmttpmFile)+' is successfully downloaded')
 
         except:
             print('Error: Download failed', file=sys.stderr)
             sys.exit(1)
 
         #xffts
-        print('Downloading a xffts file of obsid: '+str(self.obsid).zfill(6))
+        print('Downloading xffts files of obsid: '+str(self.obsid).zfill(6))
         try:
-            with FTP(**self.config) as ftp:
-                with open(self.xffts, 'wb') as fp:
-                    ftp.retrbinary('RETR '+elf.localBaseDir+'xffts/'+os.path.basename(self.xffts), fp.write)
-            print('  successfully downloaded')
+            for xfftsFile in self.xfftsFileList:
+                with FTP(**self.config) as ftp:
+                    with open(self.localBaseDir+'/xffts/'+os.path.basename(xfftsFile).replace(str(self.obsid).zfill(6)+'_',''), 'wb') as fp:
+                        ftp.retrbinary('RETR '+xfftsFile, fp.write)
+                print(os.path.basename(xfftsFile).replace(str(self.obsid).zfill(6)+'_','')+' is successfully downloaded')
 
         except:
             print('Error: Download failed', file=sys.stderr)
@@ -88,6 +90,3 @@ class B4Rquery:
     def SearchAndDownload(self,obsid):
         self.FindRawdata(obsid)
         self.DownloadRawdata()
-
-
-    ###

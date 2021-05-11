@@ -12,7 +12,7 @@ setup(
     name='b4rpipe', # パッケージ名(プロジェクト名)
     packages=['b4rpipe'], # パッケージ内(プロジェクト内)のパッケージ名をリスト形式で指定
 
-    version='0.0.11', # バージョン
+    version='0.1.0', # バージョン
 
     license='MIT', # ライセンス
 
