@@ -1,4 +1,5 @@
 build/
 dist/
 b4rpipe.egg-info/
-._*
+b4rpipe/._*
+test/._*
