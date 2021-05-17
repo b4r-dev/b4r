@@ -76,7 +76,8 @@ def AZEL2RADEC(az,
                utctime,
                lon = -97.31461167440136,
                lat = 18.98607157170612,
-               height = 4640.):
+               height = 4640.,
+               ):
 
 	# modules
 	from astropy import coordinates
@@ -393,8 +394,20 @@ class B4Rdataset :
         azon_raw_sky = self.az_sky[self.antonpos] * 3600 * 180/pi     #rad -> sec
         elon_raw_sky = self.el_sky[self.antonpos] * 3600 * 180/pi
 
+        azon_raw_sky_dAZ = (self.az_sky-self.source_az)[self.antonpos] * 3600 * 180/pi     #rad -> sec
+        elon_raw_sky_dEL = (self.el_sky-self.source_el)[self.antonpos] * 3600 * 180/pi
+
+        azon_raw_sky_map = (self.az_map)[self.antonpos] * 3600 * 180/pi     #rad -> sec
+        elon_raw_sky_map = (self.el_map)[self.antonpos] * 3600 * 180/pi
+
         azon_intrp_sky = interp1d(tant_on - tant_on[0], azon_raw_sky, fill_value='extrapolate')(tbe_on - tant_on[0])
         elon_intrp_sky = interp1d(tant_on - tant_on[0], elon_raw_sky, fill_value='extrapolate')(tbe_on - tant_on[0])
+
+        azon_intrp_sky_dAZ = interp1d(tant_on - tant_on[0], azon_raw_sky_dAZ, fill_value='extrapolate')(tbe_on - tant_on[0])
+        elon_intrp_sky_dEL = interp1d(tant_on - tant_on[0], elon_raw_sky_dEL, fill_value='extrapolate')(tbe_on - tant_on[0])
+
+        azon_intrp_sky_map = interp1d(tant_on - tant_on[0], azon_raw_sky_map, fill_value='extrapolate')(tbe_on - tant_on[0])
+        elon_intrp_sky_map = interp1d(tant_on - tant_on[0], elon_raw_sky_map, fill_value='extrapolate')(tbe_on - tant_on[0])
 
 
         #### create off-pos spectra #####
@@ -520,6 +533,10 @@ class B4Rdataset :
         self.elon_intrp = elon_intrp
         self.azon_intrp_sky = azon_intrp_sky
         self.elon_intrp_sky = elon_intrp_sky
+        self.azon_intrp_sky_dAZ = azon_intrp_sky_dAZ
+        self.elon_intrp_sky_dEL = elon_intrp_sky_dEL
+        self.azon_intrp_sky_map = azon_intrp_sky_map
+        self.elon_intrp_sky_map = elon_intrp_sky_map
         self.azon_raw   = azon_raw
         self.elon_raw   = elon_raw
 
@@ -1032,8 +1049,17 @@ class B4Rdataset :
 
             self.createPsData(Dir='ContPointing/')
 
-    def PointingConv(self,dAZ=0.,dEL=0.):
-        print('### Convert AZEL to RADEC...')
+    def PointingConv(self,dAZ=0.,dEL=0.,dAZdELmode=False):
+        if dAZdELmode:
+            print('### Convert AZEL to dAZdEL')
+            print('#################################################################')
+            print('### Warning!: This mode is only for developers, NOT for users ###')
+            print('#################################################################')
+        else:
+            print('### Convert AZEL to RADEC...')
+
+        print('# dAZ = '+str(dAZ)+' arcsec inserted')
+        print('# dEL = '+str(dEL)+' arcsec inserted')
         # dAZ, dEL in the arcsec unit
 
         direction = np.zeros((self.ontime.shape[0],2),dtype='float64')
@@ -1041,7 +1067,14 @@ class B4Rdataset :
 
         for i in tqdm(range(self.ontime.shape[0])):
             onTime = Time(self.ontime[i]/1.0e6,format='unix',scale='utc')
-            ra,dec = AZEL2RADEC((self.azon_intrp_sky[i]-dAZ)/3600.,(self.elon_intrp_sky[i]-dEL)/3600.,onTime)
+
+            if dAZdELmode:
+                ra  = (self.azon_intrp_sky_map[i]-dAZ)/3600.
+                dec = (self.elon_intrp_sky_map[i]-dEL)/3600.
+            else:
+                ra,dec = AZEL2RADEC((self.azon_intrp_sky[i]-dAZ)/3600.,(self.elon_intrp_sky[i]-dEL)/3600.,onTime)
+
+
             direction[i][0] = ra
             direction[i][1] = dec
             time[i] = onTime.mjd*24.*60.*60.
@@ -1051,8 +1084,8 @@ class B4Rdataset :
         self.dAZ = dAZ
         self.dEL = dEL
 
-    def createMS2(self,dAZ=0.,dEL=0.):
-        self.PointingConv(dAZ=dAZ,dEL=dEL)
+    def createMS2(self,dAZ=0.,dEL=0.,dAZdELmode=False):
+        self.PointingConv(dAZ=dAZ,dEL=dEL,dAZdELmode=dAZdELmode)
         specdata = np.zeros([self.time.shape[0],2,2,self.lsbfreq.shape[0]])
         specdata[:,0,0,:] = self.onoffspecs_raw[:,0,:]
         specdata[:,1,0,:] = self.onoffspecs_raw[:,1,:]

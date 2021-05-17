@@ -10,7 +10,7 @@ name = "test.pypi"
 
 [packages]
 ipython = "*"
-b4rpipe = {version = "0.0.25", index = "https://test.pypi.org/simple/"}
+b4rpipe = {version = "*", index = "https://test.pypi.org/simple/"}
 
 [dev-packages]
 

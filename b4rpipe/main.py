@@ -10,7 +10,7 @@ import numpy as np
 Bp.globBaseDir = './rawdata'
 Bp.globLogDir = './calibrated'
 
-def PipelineAnalysis(obsnum,dAZ=0.,dEL=0.,DataDownload=False,username='',password=''):
+def PipelineAnalysis(obsnum,dAZ=0.,dEL=0.,dAZdELmode=False,DataDownload=False,username='',password=''):
 
     Lib.globBaseDir = Bp.globBaseDir
     Lib.globLogDir = Bp.globLogDir
@@ -70,7 +70,7 @@ def PipelineAnalysis(obsnum,dAZ=0.,dEL=0.,DataDownload=False,username='',passwor
     try:
         obj = Lib.B4Rdataset(obsnum=obsnum,calnum=obsnum-1)
         obj.Pipeline(binning=1,noRefCal=True)
-        obj.createMS2(dAZ=dAZ,dEL=dEL)
+        obj.createMS2(dAZ=dAZ,dEL=dEL,dAZdELmode=dAZdELmode)
         logf.write('MS2: PASS'+'\n')
     except:
         logf.write('MS2: FAIL'+'\n')
