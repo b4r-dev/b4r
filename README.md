@@ -4,9 +4,7 @@
 [![](https://img.shields.io/pypi/pyversions/b4rpipe.svg?label=Python&color=yellow&style=flat-square)](https://pypi.org/pypi/b4rpipe/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?label=License&style=flat-square)](LICENSE)
 
-A pipeline reduction tool for B4R/LMT data.
-
-**The scripts are still under development. We are not responsible for the outputs now.**
+Pipeline reduction tools for B4R/LMT data.
 
 **************************************************************
 Installation
@@ -57,9 +55,10 @@ Products
 **************************************************************
 The script create following outputs (if possible).
 
-* Continuum Map Qlook (Pointing offset, efficiency, etc.)
+* Continuum Map Qlook (Pointing offset, efficiency (only for uranus), etc.)
 * Line (SiO) Map Qlook (Pointing offset, etc.)
 * Spectrum Qlook (with auto-flag)
+* Time series spectrum of PSW data (numpy readable format)
 * MS2 (CASA readable format)
 
 **************************************************************
@@ -73,12 +72,12 @@ $ >>> import b4rpipe as Bp
 $ >>> Bp.PipelineAnalysis(86420,DataDownload=True,username='hogehoge',password='*****')
 ```
 
-Then "raw" and "calibrated" directory appears at the current directory.
+Then "rawdata" and "calibrated" directory appears at the current directory.
 
 ```terminal
 $ ls
 raw calibrated
-$ ls raw
+$ ls rawdata
 lmttpm xffts
 $ls calibrated
 86420
@@ -87,7 +86,7 @@ $ls calibrated
 **************************************************************
 Correspondence
 **************************************************************
-+ B4R 2018/2019 (obsnum<087433) data <-> CASA MS2
++ B4R 2018/2019 (obsnum<=087433) data <-> CASA MS2
 
 | Name | B4R | CASA MS2 |
 | --- | --- | --- |

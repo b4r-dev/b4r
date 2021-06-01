@@ -9,24 +9,24 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
-    name='b4rpipe', # パッケージ名(プロジェクト名)
-    packages=['b4rpipe'], # パッケージ内(プロジェクト内)のパッケージ名をリスト形式で指定
+    name='b4rpipe',
+    packages=['b4rpipe'],
 
-    version='0.1.1', # バージョン
+    version='0.1.2', 
 
-    license='MIT', # ライセンス
+    license='MIT',
 
     install_requires=['numpy','scipy','astropy','xarray','matplotlib','fmflow','bokeh','netcdf4','python-casacore','decode','tqdm'], # pip installする際に同時にインストールされるパッケージ名をリスト形式で指定
 
-    author='astroysmr', # パッケージ作者の名前
-    author_email='astro.yoshimura@gmail.com', # パッケージ作者の連絡先メールアドレス
+    author='astroysmr',
+    author_email='astro.yoshimura@gmail.com',
 
-    url='https://github.com/LMT-heterodyne-dev/b4rpipe', # パッケージに関連するサイトのURL(GitHubなど)
+    url='https://github.com/LMT-heterodyne-dev/b4rpipe',
 
-    description='Pipeline reduction tools for B4R (2mm heterodyne reciver) on LMT 50m @Mexico', # パッケージの簡単な説明
-    long_description=long_description, # PyPIに'Project description'として表示されるパッケージの説明文
-    long_description_content_type='text/markdown', # long_descriptionの形式を'text/plain', 'text/x-rst', 'text/markdown'のいずれかから指定
-    keywords='B4R LMT', # PyPIでの検索用キーワードをスペース区切りで指定
+    description='Pipeline reduction tools for B4R (2mm heterodyne reciver) on LMT 50m @Mexico',
+    long_description=long_description,
+    long_description_content_type='text/markdown',
+    keywords='B4R LMT',
 
     classifiers=[
         'License :: OSI Approved :: MIT License',
