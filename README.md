@@ -59,6 +59,7 @@ The script create following outputs (if possible).
 * Line (SiO) Map Qlook (Pointing offset, etc.)
 * Spectrum Qlook (with auto-flag)
 * Time series spectrum of PSW data (numpy readable format)
+* GoDec calibration results (see Taniguch et al. 2021)
 * MS2 (CASA readable format)
 
 **************************************************************

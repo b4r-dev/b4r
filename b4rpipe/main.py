@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import b4rpipe.LibB4Rtools as Lib
 import b4rpipe.b4rquery as b4rQ
+import b4rpipe.godec as godec
 import b4rpipe as Bp
 #import importlib
 import os
@@ -59,6 +60,18 @@ def PipelineAnalysis(obsnum,dAZ=0.,dEL=0.,dAZdELmode=False,DataDownload=False,us
         logf.write('Ps(High-z): FAIL'+'\n')
 
 
+    try:
+        obj = Lib.B4Rdataset(obsnum=obsnum,calnum=obsnum-1)
+        obj.Pipeline(binning=1)
+        for pol in ['pol1','pol2']:
+            for sideband in ['usb','lsb']:
+                objGoDec = godec.GoDecDataSet(obj, binning=256, pol=[pol], sideband=sideband, globLogDir=Lib.globLogDir)
+                objGoDec.B4Rdata2GoDecInput()
+                objGoDec.GoDecCal()
+                objGoDec.outputResult()
+        logf.write('GoDec(High-z): PASS'+'\n')
+    except:
+        logf.write('GoDec(High-z): FAIL'+'\n')
     try:
         obj = Lib.B4Rdataset(obsnum=obsnum,calnum=obsnum-1)
         obj.Pipeline(binning=1)
