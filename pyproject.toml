@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "b4rpipe"
+version = "0.1.3"
+description = "Pipeline reduction tools for B4R/LMT data"
+authors = [
+    "Akio Taniguchi <taniguchi@a.phys.nagoya-u.ac.jp>",
+    "Yuki Yoshimura <astro.yoshimura@gmail.com>",
+]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.6, <3.9"
+astropy = "*"
+matplotlib = "*"
+netcdf4 = "*"
+numpy = "*"
+python-casacore = "*"
+scipy = "*"
+tqdm = "*"
+scikit-learn = "*"
+
+[tool.poetry.group.dev.dependencies]
+ipython = "*"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
