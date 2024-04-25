@@ -1,0 +1,33 @@
+{
+    "name": "b4rpipe",
+    "image": "python:3.8",
+    "runArgs": [
+        "--name=b4rpipe",
+        "--platform=linux/amd64"
+    ],
+    "containerEnv": {
+        "POETRY_VIRTUALENVS_CREATE": "false"
+    },
+    "onCreateCommand": "pip install poetry",
+    "postCreateCommand": "poetry install",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "github.vscode-pull-request-github",
+                "mhutchie.git-graph",
+                "ms-python.python",
+                "tamasfe.even-better-toml"
+            ],
+            "settings": {
+                "files.insertFinalNewline": true,
+                "files.trimTrailingWhitespace": true,
+                "[python]": {
+                    "editor.formatOnSave": true,
+                    "editor.insertSpaces": true,
+                    "editor.tabSize": 4,
+                    "python.languageServer": "Pylance"
+                }
+            }
+        }
+    }
+}
