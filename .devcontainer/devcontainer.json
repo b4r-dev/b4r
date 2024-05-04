@@ -9,13 +9,15 @@
         "POETRY_VIRTUALENVS_CREATE": "false"
     },
     "onCreateCommand": "pip install poetry",
-    "postCreateCommand": "poetry install",
+    "postCreateCommand": "poetry install==1.8.2",
     "customizations": {
         "vscode": {
             "extensions": [
                 "github.vscode-pull-request-github",
                 "mhutchie.git-graph",
+                "ms-python.black-formatter",
                 "ms-python.python",
+                "streetsidesoftware.code-spell-checker",
                 "tamasfe.even-better-toml"
             ],
             "settings": {
@@ -23,6 +25,7 @@
                 "files.insertFinalNewline": true,
                 "files.trimTrailingWhitespace": true,
                 "[python]": {
+                    "editor.defaultFormatter": "ms-python.black-formatter",
                     "editor.formatOnSave": true,
                     "editor.insertSpaces": true,
                     "editor.tabSize": 4,
