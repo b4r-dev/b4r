@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from typing import Optional
 import b4rpipe.LibB4Rtools as Lib
 import b4rpipe.b4rquery as b4rQ
 import b4rpipe.godec as godec
@@ -15,14 +16,17 @@ Bp.globLogDir = "./calibrated"
 
 
 def PipelineAnalysis(
-    obsnum,
-    dAZ=0.0,
-    dEL=0.0,
-    dAZdELmode=False,
-    DataDownload=False,
-    username="",
-    password="",
-):
+    obsnum: int,
+    calnum: Optional[int] = None,
+    dAZ: float = 0.0,
+    dEL: float = 0.0,
+    dAZdELmode: bool = False,
+    DataDownload: bool = False,
+    username: str = "",
+    password: str = "",
+) -> None:
+    if calnum is None:
+        calnum = obsnum - 1
 
     Lib.globBaseDir = Bp.globBaseDir
     Lib.globLogDir = Bp.globLogDir
@@ -49,7 +53,7 @@ def PipelineAnalysis(
         Query.SearchAndDownload(obsnum - 1)
 
     try:
-        obj = Lib.B4Rdataset(obsnum=obsnum, calnum=obsnum - 1)
+        obj = Lib.B4Rdataset(obsnum=obsnum, calnum=calnum)
         obj.Pipeline(binning=8)
         obj.LinePointingQlook()
         logf.write("LinePointing: PASS" + "\n")
@@ -57,7 +61,7 @@ def PipelineAnalysis(
         logf.write("LinePointing: FAIL" + "\n")
 
     try:
-        obj = Lib.B4Rdataset(obsnum=obsnum, calnum=obsnum - 1)
+        obj = Lib.B4Rdataset(obsnum=obsnum, calnum=calnum)
         obj.Pipeline(binning=512, noRefCal=True)
         obj.ContPointingQlook()
         logf.write("ContPointing: PASS" + "\n")
@@ -65,7 +69,7 @@ def PipelineAnalysis(
         logf.write("ContPointing: FAIL" + "\n")
 
     try:
-        obj = Lib.B4Rdataset(obsnum=obsnum, calnum=obsnum - 1)
+        obj = Lib.B4Rdataset(obsnum=obsnum, calnum=calnum)
         obj.Pipeline(binning=8)
         obj.PsQlook(highz=False)
         logf.write("Ps(nearby): PASS" + "\n")
@@ -73,7 +77,7 @@ def PipelineAnalysis(
         logf.write("Ps(nearby): FAIL" + "\n")
 
     try:
-        obj = Lib.B4Rdataset(obsnum=obsnum, calnum=obsnum - 1)
+        obj = Lib.B4Rdataset(obsnum=obsnum, calnum=calnum)
         obj.Pipeline(binning=256)
         obj.PsQlook(highz=True)
         logf.write("Ps(High-z): PASS" + "\n")
@@ -81,7 +85,7 @@ def PipelineAnalysis(
         logf.write("Ps(High-z): FAIL" + "\n")
 
     try:
-        obj = Lib.B4Rdataset(obsnum=obsnum, calnum=obsnum - 1)
+        obj = Lib.B4Rdataset(obsnum=obsnum, calnum=calnum)
         obj.Pipeline(binning=1)
         for pol in ["pol1", "pol2"]:
             for sideband in ["usb", "lsb"]:
@@ -99,7 +103,7 @@ def PipelineAnalysis(
     except:
         logf.write("GoDec(High-z): FAIL" + "\n")
     try:
-        obj = Lib.B4Rdataset(obsnum=obsnum, calnum=obsnum - 1)
+        obj = Lib.B4Rdataset(obsnum=obsnum, calnum=calnum)
         obj.Pipeline(binning=1)
         obj.createPsData()
         logf.write("PsData: PASS" + "\n")
@@ -107,7 +111,7 @@ def PipelineAnalysis(
         logf.write("PsData: FAIL" + "\n")
 
     try:
-        obj = Lib.B4Rdataset(obsnum=obsnum, calnum=obsnum - 1)
+        obj = Lib.B4Rdataset(obsnum=obsnum, calnum=calnum)
         obj.Pipeline(binning=1, noRefCal=True)
         obj.createMS2(dAZ=dAZ, dEL=dEL, dAZdELmode=dAZdELmode)
         logf.write("MS2: PASS" + "\n")
