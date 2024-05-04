@@ -1,6 +1,6 @@
 {
     "name": "b4rpipe",
-    "image": "python:3.8",
+    "image": "python:3.10",
     "runArgs": [
         "--name=b4rpipe",
         "--platform=linux/amd64"
@@ -19,6 +19,7 @@
                 "tamasfe.even-better-toml"
             ],
             "settings": {
+                "extensions.verifySignature": false,
                 "files.insertFinalNewline": true,
                 "files.trimTrailingWhitespace": true,
                 "[python]": {
