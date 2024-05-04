@@ -10,18 +10,19 @@ license = "MIT"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = ">=3.6, <3.9"
-astropy = "*"
-matplotlib = "*"
-netcdf4 = "*"
-numpy = "*"
-python-casacore = "*"
-scipy = "*"
-tqdm = "*"
-scikit-learn = "*"
+python = ">=3.9, <3.13"
+astropy = "^6.0"
+matplotlib = "^3.8"
+netcdf4 = "^1.6"
+numpy = "^1.26"
+python-casacore = "^3.5"
+scipy = "^1.13"
+tqdm = "^4.66"
+scikit-learn = "^1.4"
 
 [tool.poetry.group.dev.dependencies]
-ipython = "*"
+black = "^24.4"
+ipython = "^8.18"
 
 [build-system]
 requires = ["poetry-core"]
