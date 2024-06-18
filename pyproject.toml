@@ -18,7 +18,7 @@ numpy = "^1.26"
 python-casacore = "^3.5"
 scipy = "^1.13"
 tqdm = "^4.66"
-scikit-learn = "^1.4"
+scikit-learn = "^1.5"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.4"
