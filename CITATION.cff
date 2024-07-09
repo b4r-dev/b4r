@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+
+title: "b4r"
+abstract: "Reduction and analysis tools for LMT/B4R"
+version: 0.2.0
+date-released: 2024-07-09
+license: "MIT"
+url: "https://github.com/b4r-dev/b4r"
+authors:
+  - given-names: "Akio"
+    family-names: "Taniguchi"
+    affiliation: "Nagoya University"
+    orcid: "https://orcid.org/0000-0002-9695-6183"
