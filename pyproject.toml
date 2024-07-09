@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "b4r"
-version = "0.2.0"
+version = "2024.7.0"
 description = "Reduction and analysis tools for LMT/B4R"
 authors = ["Akio Taniguchi <taniguchi@a.phys.nagoya-u.ac.jp>"]
 license = "MIT"

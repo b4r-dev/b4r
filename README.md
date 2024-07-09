@@ -10,7 +10,7 @@ Reduction and analysis tools for LMT/B4R
 ## Installation
 
 ```shell
-pip install b4r
+pip install b4r==2024.7.0
 ```
 
 ## Usage
