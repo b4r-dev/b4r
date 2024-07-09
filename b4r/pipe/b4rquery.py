@@ -1,5 +1,5 @@
 from ftplib import FTP
-import b4rpipe.specfile4 as sp
+import b4r.pipe.specfile4 as sp
 import sys
 import os
 

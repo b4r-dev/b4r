@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 from typing import Optional
-import b4rpipe.LibB4Rtools as Lib
-import b4rpipe.b4rquery as b4rQ
-import b4rpipe.godec as godec
-import b4rpipe as Bp
+import b4r.pipe.LibB4Rtools as Lib
+import b4r.pipe.b4rquery as b4rQ
+import b4r.pipe.godec as godec
+import b4r.pipe as Bp
 
 # import importlib
 import os
