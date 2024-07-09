@@ -7,7 +7,7 @@ license = "MIT"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = ">=3.9, <3.13"
+python = ">=3.9, <3.12"
 astropy = "^6.0"
 matplotlib = "^3.8"
 netcdf4 = "^1.6"

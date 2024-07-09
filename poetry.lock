@@ -182,10 +182,7 @@ files = [
 ]
 
 [package.dependencies]
-numpy = [
-    {version = ">1.13.3", markers = "python_version < \"3.12.0.rc1\""},
-    {version = ">=1.26.0b1", markers = "python_version >= \"3.12.0.rc1\""},
-]
+numpy = {version = ">1.13.3", markers = "python_version < \"3.12.0.rc1\""}
 
 [[package]]
 name = "click"
@@ -1322,5 +1319,5 @@ test = ["big-O", "importlib-resources", "jaraco.functools", "jaraco.itertools", 
 
 [metadata]
 lock-version = "2.0"
-python-versions = ">=3.9, <3.13"
-content-hash = "2791294b18b725a59a4483521c221c3fd7d3f37cfbb00a3a55271d3a45210ec4"
+python-versions = ">=3.9, <3.12"
+content-hash = "b81795e77c7496acfb820698f6b2d593badd70c6b0c4e0947210ff6b6c68c4ba"
