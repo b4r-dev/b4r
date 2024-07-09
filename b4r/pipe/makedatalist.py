@@ -1,7 +1,7 @@
 import glob
 import re
 import netCDF4 as nc
-import b4rpipe.specfile4 as sp
+import b4r.pipe.specfile4 as sp
 import numpy as np
 import math as ma
 

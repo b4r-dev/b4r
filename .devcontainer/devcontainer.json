@@ -1,15 +1,15 @@
 {
-    "name": "b4rpipe",
-    "image": "python:3.10",
+    "name": "b4r",
+    "image": "python:3.11",
     "runArgs": [
-        "--name=b4rpipe",
+        "--name=b4r",
         "--platform=linux/amd64"
     ],
     "containerEnv": {
         "POETRY_VIRTUALENVS_CREATE": "false"
     },
-    "onCreateCommand": "pip install poetry",
-    "postCreateCommand": "poetry install==1.8.2",
+    "onCreateCommand": "pip install poetry==1.8.3",
+    "postCreateCommand": "poetry install",
     "customizations": {
         "vscode": {
             "extensions": [

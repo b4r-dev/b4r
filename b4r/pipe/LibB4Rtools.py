@@ -35,9 +35,9 @@ iers.conf.auto_download = False
 iers.conf.auto_max_age = None
 
 # submodules
-import b4rpipe.makedatalist as md
-import b4rpipe.specfile4 as sp
-import b4rpipe.CreateMs2 as ms2
+import b4r.pipe.makedatalist as md
+import b4r.pipe.specfile4 as sp
+import b4r.pipe.CreateMs2 as ms2
 
 globBaseDir = "./rawdata"
 globLogDir = "./calibrated"
