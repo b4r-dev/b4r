@@ -3,7 +3,7 @@
 [![Release](https://img.shields.io/pypi/v/b4r?label=Release&color=cornflowerblue&style=flat-square)](https://pypi.org/project/b4r/)
 [![Python](https://img.shields.io/pypi/pyversions/b4r?label=Python&color=cornflowerblue&style=flat-square)](https://pypi.org/project/b4r/)
 [![Downloads](https://img.shields.io/pypi/dm/b4r?label=Downloads&color=cornflowerblue&style=flat-square)](https://pepy.tech/project/b4r)
-[![DOI](https://img.shields.io/badge/DO/actions/workflow/status/b4r-dev/b4r/tests.yaml?label=Tests&style=flat-square)](https://github.com/b4r-dev/b4r/actions)
+[![Tests](https://img.shields.io/github/actions/workflow/status/b4r-dev/b4r/tests.yaml?label=Tests&style=flat-square)](https://github.com/b4r-dev/b4r/actions)
 
 Reduction and analysis tools for LMT/B4R
 
